@@ -73,6 +73,12 @@ public class RobotTemplate extends IterativeRobot
 
 	AxisCamera axis;
 
+	Servo camx;
+	Servo camy;
+
+	double posx;
+	double posy;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -114,7 +120,11 @@ public class RobotTemplate extends IterativeRobot
 
 		lJoyTriggerLast = false;
 
-		
+		camx = new Servo(7);
+		camy = new Servo(8);
+
+		posx = 0;
+		posy= 0;
     }
 
     /**
@@ -137,8 +147,8 @@ public class RobotTemplate extends IterativeRobot
     public void teleopPeriodic()
 	{
 
-
-		//Seconds per loop = 1/getLoopsPerSec();
+		camx.set((lJoy.getZ()+1.0)/2.0);
+		camy.set((rJoy.getZ()+1.0)/2.0);
 		
 		if(lJoy.getTrigger() && !lJoyTriggerLast)
 			inTankDrive = !inTankDrive;
