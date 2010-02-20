@@ -79,9 +79,11 @@ public class RobotTemplate extends IterativeRobot
      */
     public void robotInit()
 	{
-		//Timer.delay(10);
-		//axis = AxisCamera.getInstance();
-		//axis.writeResolution(AxisCamera.ResolutionT.k320x240);
+		Timer.delay(10);
+		axis = AxisCamera.getInstance();
+		axis.writeResolution(AxisCamera.ResolutionT.k160x120);
+		axis.writeRotation(AxisCamera.RotationT.k180);
+		axis.writeCompression(0);
 
 
 		//Initialize everything.
