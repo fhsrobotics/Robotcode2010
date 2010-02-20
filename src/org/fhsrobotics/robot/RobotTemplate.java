@@ -160,7 +160,7 @@ public class RobotTemplate extends IterativeRobot
 			//trigger.fire();
 			isCocked = false;
 			//Make the code wait 2 seconds before retracting the solenoids.
-			triggerTimeRemaining = (int)(2.0*getLoopsPerSec());
+			triggerTimeRemaining = (int)(3000);
 			extending = true;
 			//Extend the solenoids.
 			sol1.set(true);
@@ -176,7 +176,8 @@ public class RobotTemplate extends IterativeRobot
 				sol1.set(false);
 				sol2.set(true);
 				extending = false;
-				triggerTimeRemaining = (int)(3.0*getLoopsPerSec());
+				this.
+				triggerTimeRemaining = (int)(3000);
 			}
 		}
 		else
