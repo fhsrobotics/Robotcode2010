@@ -82,15 +82,15 @@ public class OmniDrive
 		//joysticks are pushed forwards, the right will go backwards if the
 		//joysticks are pushed to the right, and the left will go forwards if
 		//the joysticks are pushed to the right.
-		frJag.set(Math.max(Math.min(rightJoy.getY() + averageJoyX, 1),-1));
-		flJag.set(Math.max(Math.min(leftJoy.getY() - averageJoyX, 1),-1));
+		frJag.set(Math.max(Math.min(rightJoy.getY() - averageJoyX, 1),-1));
+		flJag.set(Math.max(Math.min(leftJoy.getY() + averageJoyX, 1),-1));
 
 		//Then set the rear jaguars. They both will go forward if the
 		//joysticks are pushed forwards, the right will go forwards if the
 		//joysticks are pushed to the right, and the left will go backwards if
 		//the joysticks are pushed to the right.
-		brJag.set(Math.max(Math.min(rightJoy.getY() - averageJoyX, 1),-1));
-		blJag.set(Math.max(Math.min(leftJoy.getY() + averageJoyX, 1),-1));
+		brJag.set(Math.max(Math.min(rightJoy.getY() + averageJoyX, 1),-1));
+		blJag.set(Math.max(Math.min(leftJoy.getY() - averageJoyX, 1),-1));
 	}
 
 	public void updateIndependant()
@@ -102,10 +102,10 @@ public class OmniDrive
 		brJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX() + rightJoy.getZ(), 1),-1));
 		blJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX() - rightJoy.getZ(), 1),-1));*/
 
-		frJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() + leftJoy.getX(), 1),-1));
-		flJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() - leftJoy.getX(), 1),-1));
-		brJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX(), 1),-1));
-		blJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX(), 1),-1));
+		frJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() - leftJoy.getX(), 1),-1));
+		flJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() + leftJoy.getX(), 1),-1));
+		brJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX(), 1),-1));
+		blJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX(), 1),-1));
 
 		//flJag.set(1);
 		//frJag.set(1);
