@@ -155,7 +155,7 @@ public class RobotTemplate extends IterativeRobot
 			c.start();
 
 		//Begin kicker control code.
-		/*if(isCocked == true && rJoy.getTrigger())
+		if(isCocked == true && rJoy.getTrigger())
 		{
 			//trigger.fire();
 			isCocked = false;
@@ -192,7 +192,7 @@ public class RobotTemplate extends IterativeRobot
 				extending = false;
 				isCocked = true;
 			}
-		*/
+		}
 
     }
 
