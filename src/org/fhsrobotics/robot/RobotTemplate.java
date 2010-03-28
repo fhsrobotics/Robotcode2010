@@ -131,28 +131,42 @@ public class RobotTemplate extends IterativeRobot
 		posx = 0;
 		posy = 0;
 
-		//count = 500;
+		count = 0;
     }
 
-	//int count;
+	int count;
 
+	public void autonomousInit()
+	{
+		count = 0;
+	}
 
     /**
      * This function is called periodically during autonomous.
      */
     public void autonomousPeriodic()
 	{
-		//if(count > 0)
+		if(count < Integer.MAX_VALUE)
+			++count;
+
+		if(count < 80)
 		{
-			//count--;
-
+			sol1.set(false);
+			sol2.set(true);
+			//Joystick values
+			drive.updateIndependant(-0.5, 0, 0, 0);
 		}
-
-		//Might as well make the robot retract the actuator for real.
-		if(!shotAuto) {
-			//sol1.set(false);
-			//sol2.set(true);
-			shotAuto = true;
+		else if(count < 88)
+		{
+			//Extend
+			sol1.set(true);
+			sol2.set(false);
+		}
+		else
+		{
+			sol1.set(false);
+			sol2.set(true);
+			drive.updateIndependant(0, 0, 0, 0);
 		}
 
 		//And charge the accumulators if need be.

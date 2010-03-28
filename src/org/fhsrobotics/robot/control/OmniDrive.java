@@ -121,4 +121,33 @@ public class OmniDrive
 		//flJag.set(1);
 		//frJag.set(1);
 	}
+
+	public void updateIndependant(double rY, double rX, double lY, double lX)
+	{
+		//This drives the robot, using the L joy for rot, r joy for trans.
+		//lJoy+, robot cw
+		/*frJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() + leftJoy.getX() + rightJoy.getZ(), 1),-1));
+		flJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() - leftJoy.getX() - rightJoy.getZ(), 1),-1));
+		brJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX() + rightJoy.getZ(), 1),-1));
+		blJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX() - rightJoy.getZ(), 1),-1));*/
+		/*if(l == r) {
+			double lX = leftJoy.getRawAxis(1);
+			double lY = leftJoy.getRawAxis(2);
+			double rX = leftJoy.getRawAxis(3);
+			double rY = leftJoy.getRawAxis(4);
+
+			frJag.set(Math.max(Math.min(rY + lY - rX - lX, 1),-1));
+			flJag.set(Math.max(Math.min(rY + lY + rX + lX, 1),-1));
+			brJag.set(Math.max(Math.min(rY + lY + rX - lX, 1),-1));
+			blJag.set(Math.max(Math.min(rY + lY - rX + lX, 1),-1));
+		} else {*/
+			frJag.set(Math.max(Math.min(rY + lY - rX - lX, 1),-1));
+			flJag.set(Math.max(Math.min(rY + lY + rX + lX, 1),-1));
+			brJag.set(Math.max(Math.min(rY + lY + rX - lX, 1),-1));
+			blJag.set(Math.max(Math.min(rY + lY - rX + lX, 1),-1));
+		//}
+
+		//flJag.set(1);
+		//frJag.set(1);
+	}
 }
