@@ -54,7 +54,7 @@ public class RobotTemplate extends IterativeRobot
 	Solenoid sol1, sol2;
 
 	//Joystick references.
-	Joystick lJoy, rJoy;
+	Joystick lJoy, rJoy, tJoy;
 
 	//The trigger that releases the kicker.
 	Object trigger;
@@ -67,6 +67,7 @@ public class RobotTemplate extends IterativeRobot
 	boolean isCocked;
 	int triggerTimeRemaining;
 	boolean extending;
+	boolean shotAuto;
 
 	boolean inTankDrive;
 	boolean lJoyTriggerLast;
@@ -85,10 +86,12 @@ public class RobotTemplate extends IterativeRobot
      */
     public void robotInit()
 	{
+		Watchdog.getInstance().setEnabled(false);
+
 		Timer.delay(10);
 		axis = AxisCamera.getInstance();
-		axis.writeResolution(AxisCamera.ResolutionT.k160x120);
-		axis.writeRotation(AxisCamera.RotationT.k180);
+		axis.writeResolution(AxisCamera.ResolutionT.k640x480);
+		//axis.writeRotation(AxisCamera.RotationT.k180);
 		axis.writeCompression(0);
 
 
@@ -100,7 +103,8 @@ public class RobotTemplate extends IterativeRobot
 		sol2 = new Solenoid(7,2);
 
 		lJoy = new Joystick(1);
-		rJoy = new Joystick(2);
+		rJoy = new Joystick(2); // not the same controller!
+//		tJoy = new Joystick(3);
 
 		drive = new OmniDrive(rJoy, lJoy,
 				new Jaguar(1), new Jaguar(2),
@@ -115,50 +119,75 @@ public class RobotTemplate extends IterativeRobot
 		isCocked = true;
 		triggerTimeRemaining = 0;
 		extending = false;
+		shotAuto = false;
 
 		inTankDrive = true;
 
 		lJoyTriggerLast = false;
 
-		camx = new Servo(7);
-		camy = new Servo(8);
+		//camx = new Servo(7);
+		//camy = new Servo(8);
 
 		posx = 0;
-		posy= 0;
+		posy = 0;
+
+		//count = 500;
     }
+
+	//int count;
+
 
     /**
      * This function is called periodically during autonomous.
      */
     public void autonomousPeriodic()
 	{
+		//if(count > 0)
+		{
+			//count--;
+
+		}
+
 		//Might as well make the robot retract the actuator for real.
-		sol1.set(false);
-		sol2.set(true);
+		if(!shotAuto) {
+			//sol1.set(false);
+			//sol2.set(true);
+			shotAuto = true;
+		}
 
 		//And charge the accumulators if need be.
 		if(!c.enabled())
 			c.start();
-    }
+	}
 
     /**
      * This function is called periodically during operator control.
      */
     public void teleopPeriodic()
 	{
+//		System.out.print(tJoy.getRawAxis(1));
+//		System.out.print(" ");
+//		System.out.print(tJoy.getRawAxis(2));
+//		System.out.print(" ");
+//		System.out.print(tJoy.getRawAxis(3));
+//		System.out.print(" ");
+//		System.out.print(tJoy.getRawAxis(4));
+//		System.out.print(" ");
+//		System.out.print(tJoy.getRawAxis(5));
+//		System.out.print(" ");
+//		System.out.print(tJoy.getRawAxis(6));
+//		System.out.println(" ");
 
-		camx.set((lJoy.getZ()+1.0)/2.0);
-		camy.set((rJoy.getZ()+1.0)/2.0);
-		
-		if(lJoy.getTrigger() && !lJoyTriggerLast)
+		if(rJoy.getTrigger() && !lJoyTriggerLast)
 			inTankDrive = !inTankDrive;
-		lJoyTriggerLast = lJoy.getTrigger();
+		lJoyTriggerLast = rJoy.getTrigger();
 
 
 		//Update the drive code.
-		if(inTankDrive)
-			drive.updateTank();
-		else
+		//Changed to only have independant.
+		//if(inTankDrive)
+		//	drive.updateTank();
+		//else
 			drive.updateIndependant();
 
 		//This might not be necessary, but I added it because I didn't want to
@@ -166,8 +195,13 @@ public class RobotTemplate extends IterativeRobot
         if(!c.enabled())
 			c.start();
 
+		//Make it extend with trigger pressed, retract with released.
+		sol1.set(lJoy.getTrigger());
+		sol2.set(!lJoy.getTrigger());
+
 		//Begin kicker control code.
-		if(isCocked == true && rJoy.getTrigger())
+		//Removed in favor of more driver-dependant code.
+		/*if(isCocked == true && rJoy.getTrigger())
 		{
 			//trigger.fire();
 			isCocked = false;
@@ -205,7 +239,7 @@ public class RobotTemplate extends IterativeRobot
 				extending = false;
 				isCocked = true;
 			}
-		}
+		}*/
 
     }
 

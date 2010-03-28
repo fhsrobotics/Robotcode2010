@@ -101,11 +101,22 @@ public class OmniDrive
 		flJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() - leftJoy.getX() - rightJoy.getZ(), 1),-1));
 		brJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX() + rightJoy.getZ(), 1),-1));
 		blJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX() - rightJoy.getZ(), 1),-1));*/
+		if(rightJoy == leftJoy) {
+			double lX = leftJoy.getRawAxis(1);
+			double lY = leftJoy.getRawAxis(2);
+			double rX = leftJoy.getRawAxis(3);
+			double rY = leftJoy.getRawAxis(4);
 
-		frJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() - leftJoy.getX(), 1),-1));
-		flJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() + leftJoy.getX(), 1),-1));
-		brJag.set(Math.max(Math.min(rightJoy.getY() + rightJoy.getX() - leftJoy.getX(), 1),-1));
-		blJag.set(Math.max(Math.min(rightJoy.getY() - rightJoy.getX() + leftJoy.getX(), 1),-1));
+			frJag.set(Math.max(Math.min(rY + lY - rX - lX, 1),-1));
+			flJag.set(Math.max(Math.min(rY + lY + rX + lX, 1),-1));
+			brJag.set(Math.max(Math.min(rY + lY + rX - lX, 1),-1));
+			blJag.set(Math.max(Math.min(rY + lY - rX + lX, 1),-1));
+		} else {
+			frJag.set(Math.max(Math.min(rightJoy.getY() + leftJoy.getY() - rightJoy.getX() - leftJoy.getX(), 1),-1));
+			flJag.set(Math.max(Math.min(rightJoy.getY() + leftJoy.getY() + rightJoy.getX() + leftJoy.getX(), 1),-1));
+			brJag.set(Math.max(Math.min(rightJoy.getY() + leftJoy.getY() + rightJoy.getX() - leftJoy.getX(), 1),-1));
+			blJag.set(Math.max(Math.min(rightJoy.getY() + leftJoy.getY() - rightJoy.getX() + leftJoy.getX(), 1),-1));
+		}
 
 		//flJag.set(1);
 		//frJag.set(1);
